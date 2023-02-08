@@ -10,16 +10,13 @@ class HomeProvider extends ChangeNotifier {
 
   LoadingStatus loadingState = LoadingStatus.initial;
   PostResponseModel posts = const PostResponseModel(posts: []);
-  int count = 0;
 
   Future<void> init() async {
     loadingState = LoadingStatus.loading;
     notifyListeners();
 
-    final result = await HomeService().getPosts();
+    posts = await HomeService().getPosts();
     loadingState = LoadingStatus.success;
-    posts = result;
-    await Future.delayed(const Duration(seconds: 2));
     notifyListeners();
   }
 }
