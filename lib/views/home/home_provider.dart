@@ -4,7 +4,9 @@ import 'package:first_provider/services/home_service.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeProvider extends ChangeNotifier {
-  HomeProvider() {
+  late HomeService _service;
+  HomeProvider({required HomeService service}) {
+    _service = service;
     init();
   }
 
@@ -15,7 +17,7 @@ class HomeProvider extends ChangeNotifier {
     loadingState = LoadingStatus.loading;
     notifyListeners();
 
-    posts = await HomeService().getPosts();
+    posts = await _service.getPosts();
     loadingState = LoadingStatus.success;
     notifyListeners();
   }

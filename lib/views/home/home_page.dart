@@ -1,4 +1,5 @@
 import 'package:first_provider/helpers/app_enum.dart';
+import 'package:first_provider/services/home_service_impl.dart';
 import 'package:first_provider/views/home/home_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => HomeProvider(),
+      create: (context) => HomeProvider(
+        service: HomeServiceImplement(),
+      ),
       child: Consumer<HomeProvider>(
         builder: (context, value, child) => Scaffold(
           appBar: AppBar(
@@ -29,7 +32,7 @@ class _HomePageState extends State<HomePage> {
             builder: (context) {
               if (value.loadingState == LoadingStatus.success) {
                 return ListView.builder(
-                  itemCount: value.posts.posts.length,
+                  itemCount: context.watch<HomeProvider>().posts.posts.length,
                   itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(value.posts.posts[index].title),
