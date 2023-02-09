@@ -1,4 +1,5 @@
 import 'package:first_provider/helpers/app_enum.dart';
+import 'package:first_provider/injection/injection.dart';
 import 'package:first_provider/services/home_service_impl.dart';
 import 'package:first_provider/views/home/home_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeProvider(
-        service: HomeServiceImplement(),
+        service: injector.get<HomeServiceImplement>(),
       ),
       child: Consumer<HomeProvider>(
         builder: (context, value, child) => Scaffold(
